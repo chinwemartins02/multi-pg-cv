@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Chinwe Martins</title>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <style>
+    body { font-family: Arial; text-align:center; padding:50px; background:#f0f0f0; }
+    input { padding:10px; margin:5px 0; width:250px; }
+    button { padding:10px 20px; margin-top:10px; cursor:pointer; background:#3b82f6; color:white; border:none; border-radius:5px; }
+    .container { background:white; padding:30px; border-radius:10px; display:inline-block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <input id="email" type="email" placeholder="Email"><br>
+    <input id="password" type="password" placeholder="Password"><br>
+    <button id="loginBtn">Login</button>
+    <p>No account? <a href="signup.html">Signup</a></p>
+    <p id="error-msg" style="color:red;"></p>
+  </div>
+
+  <script src="cordova.js"></script>
+  <script>
+    document.addEventListener('deviceready', function() {
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBcm_sJ35Y_BnLc0KCzvNKM37zGYEV08i4",
+        authDomain: "multi-pg-cv.firebaseapp.com",
+        projectId: "multi-pg-cv",
+        storageBucket: "multi-pg-cv.firebasestorage.app",
+        messagingSenderId: "932532241141",
+        appId: "1:932532241141:web:cf8bd2a3b97f7977b1bbbc"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+      const loginBtn = document.getElementById('loginBtn');
+      const errorMsg = document.getElementById('error-msg');
+
+      loginBtn.addEventListener('click', function() {
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+
+        if(!email || !password){
+          errorMsg.innerText = "Please enter email and password.";
+          return;
+        }
+
+        auth.signInWithEmailAndPassword(email, password)
+          .then(userCredential => {
+            const uid = userCredential.user.uid;
+            return db.collection('users').doc(uid).get();
+          })
+          .then(doc => {
+            if(doc.exists){
+              console.log("User Data:", doc.data());
+              window.location.href = "index.html";
+            } else {
+              errorMsg.innerText = "User data not found!";
+            }
+          })
+          .catch(error => {
+            console.error("Login error:", error);
+            errorMsg.innerText = error.message;
+          });
+      });
+    }, false);
+  </script>
+</body>
+</html>

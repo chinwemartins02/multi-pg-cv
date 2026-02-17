@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Education - Chinwe Martins</title>
+  <link rel="stylesheet" href="css/index.css">
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <input type="checkbox" id="menu-checkbox">
+    <div class="nav-container">
+      <div class="logo">Chinwe Martins</div>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="interests.html">Interests</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <label for="menu-checkbox" class="menu-toggle"><span></span><span></span><span></span></label>
+      <div class="mobile-menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="education.html">Education</a></li>
+          <li><a href="interests.html">Interests</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Education Section -->
+  <section id="education" class="section education">
+    <div class="container">
+      <h2 class="section-title">Educational Background</h2>
+      <div class="education-timeline">
+        <div class="education-item">
+          <div class="education-content">
+            <div class="education-date">2023 - 2024</div>
+            <h3 class="education-title">Frontend Web Development</h3>
+            <div class="education-institution">New Horizons ICT Institute, Lagos</div>
+            <p>Hands-on training in HTML, CSS, JS, React. Learned clean code practices and responsive design.</p>
+          </div>
+        </div>
+
+        <div class="education-item">
+          <div class="education-content">
+            <div class="education-date">2017 - 2021</div>
+            <h3 class="education-title">B.Sc. in Biochemistry</h3>
+            <div class="education-institution">University of Nigeria, Nsukka</div>
+            <p>Developed analytical and problem-solving skills applicable to web development.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Chinwe Martins. Built with passion and code⚡</p>
+    </div>
+  </footer>
+
+  <script src="cordova.js"></script>
+  <script src="js/index.js"></script>
+  <script>
+    document.addEventListener('deviceready', function() {
+      const firebaseConfig = {
+        apiKey: "AIzaSyBcm_sJ35Y_BnLc0KCzvNKM37zGYEV08i4",
+        authDomain: "multi-pg-cv.firebaseapp.com",
+        projectId: "multi-pg-cv",
+        storageBucket: "multi-pg-cv.firebasestorage.app",
+        messagingSenderId: "932532241141",
+        appId: "1:932532241141:web:cf8bd2a3b97f7977b1bbbc"
+      };
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+
+      auth.onAuthStateChanged(user => {
+        if (!user) window.location.href = "login.html";
+      });
+    }, false);
+  </script>
+</body>
+</html>
