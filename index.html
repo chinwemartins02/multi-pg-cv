@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About - Chinwe Martins</title>
+  <title>Chinwe Martins</title>
   <link rel="stylesheet" href="css/index.css">
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <!-- Navigation -->
@@ -17,42 +18,37 @@
     <div class="nav-container">
       <div class="logo">Chinwe Martins</div>
       <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="education.html">Education</a></li>
-        <li><a href="interests.html">Interests</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./education.html">Education</a></li>
+        <li><a href="./interests.html">Interests</a></li>
+        <li><a href="./projects.html">Projects</a></li>
+        <li><a href="./contact.html">Contact</a></li>
       </ul>
       <label for="menu-checkbox" class="menu-toggle"><span></span><span></span><span></span></label>
       <div class="mobile-menu">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="education.html">Education</a></li>
-          <li><a href="interests.html">Interests</a></li>
-          <li><a href="projects.html">Projects</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./about.html">About</a></li>
+          <li><a href="./education.html">Education</a></li>
+          <li><a href="./interests.html">Interests</a></li>
+          <li><a href="./projects.html">Projects</a></li>
+          <li><a href="./contact.html">Contact</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- About Section -->
-  <section id="about" class="section about">
-    <div class="container">
-      <h2 class="section-title">About Me</h2>
-      <div class="about-content">
-        <img src="img/Chinwe.png" alt="Profile Picture" class="profile-img">
-        <div class="about-text">
-          <p>Hello! I'm Chinwe Martins, a frontend developer with a science background.</p>
-          <p>I love building responsive websites using HTML, CSS, JavaScript, and React.</p>
-          <p>When I’m not coding, I explore tech trends and try new design ideas.</p>
-        </div>
-      </div>
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Hello, I'm Chinwe Martins</h1>
+      <p>Frontend Web Developer & Creative Problem Solver</p>
+      <a href="#about" class="cta-button">Discover My Work</a>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <p>&copy; 2026 Chinwe Martins. Built with passion and code⚡</p>
@@ -63,6 +59,8 @@
   <script src="js/index.js"></script>
   <script>
     document.addEventListener('deviceready', function() {
+
+      // Firebase config
       const firebaseConfig = {
         apiKey: "AIzaSyBcm_sJ35Y_BnLc0KCzvNKM37zGYEV08i4",
         authDomain: "multi-pg-cv.firebaseapp.com",
@@ -71,14 +69,17 @@
         messagingSenderId: "932532241141",
         appId: "1:932532241141:web:cf8bd2a3b97f7977b1bbbc"
       };
+
       firebase.initializeApp(firebaseConfig);
       const auth = firebase.auth();
 
+      // Redirect unauthenticated users to login
       auth.onAuthStateChanged(user => {
         if (!user) {
           window.location.href = "login.html";
         }
       });
+
     }, false);
   </script>
 </body>
