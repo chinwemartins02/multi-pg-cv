@@ -38,38 +38,36 @@
     </div>
   </nav>
 
-
   <!-- About Section -->
-    <section id="about" class="section about">
-        <div class="container">
-          <h2 class="section-title">About Me</h2>
-          <div class="about-content">
-            <img src="img/Chinwe.png" alt="Profile Picture" class="profile-img">
-            <div class="about-text">
-              <p>Hello! I'm Chinwe Martins, a frontend developer who enjoys building clean and responsive websites. I come from a science background—Biochemistry to be specific—which helps me approach coding with structure and logic.</p>
-      
-              <p>I started learning web development because I love how code can turn ideas into real, interactive things people can use. Over time, I’ve worked with HTML, CSS, JavaScript, and frameworks like React to build projects that not only work but also look good on all devices.</p>
-      
-              <p>These days, I spend a lot of time exploring new frontend tools, designing layouts, and improving my skills. I enjoy working on real-world projects and learning from each one. When I’m not coding, I’m probably reading about tech trends or trying out a new design idea.</p>
-            </div>
-          </div>
-      
-          <!-- Skills -->
-          <div class="skills-grid">
-            <div class="skill-category">
-              <h3>Frontend Development</h3>
-              <div class="skill-tags">
-                <span class="skill-tag">HTML5</span>
-                <span class="skill-tag">CSS3</span>
-                <span class="skill-tag">JavaScript</span>
-                <span class="skill-tag">React</span>
-                <span class="skill-tag">Node.js</span>
-              </div>
-            </div>
+  <section id="about" class="section about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-content">
+        <img src="img/Chinwe.png" alt="Profile Picture" class="profile-img">
+        <div class="about-text">
+          <p>Hello! I'm Chinwe Martins, a frontend developer who enjoys building clean and responsive websites. I come from a science background—Biochemistry to be specific—which helps me approach coding with structure and logic.</p>
+
+          <p>I started learning web development because I love how code can turn ideas into real, interactive things people can use. Over time, I've worked with HTML, CSS, JavaScript, and frameworks like React to build projects that not only work but also look good on all devices.</p>
+
+          <p>These days, I spend a lot of time exploring new frontend tools, designing layouts, and improving my skills. I enjoy working on real-world projects and learning from each one. When I'm not coding, I'm probably reading about tech trends or trying out a new design idea.</p>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>Frontend Development</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Node.js</span>
           </div>
         </div>
-      </section>
-      
+      </div>
+    </div>
+  </section>
 
   <footer class="footer">
     <div class="container">
@@ -77,27 +75,24 @@
     </div>
   </footer>
 
-  <script src="cordova.js"></script>
   <script src="js/index.js"></script>
   <script>
-    document.addEventListener('deviceready', function() {
-      const firebaseConfig = {
-        apiKey: "AIzaSyBcm_sJ35Y_BnLc0KCzvNKM37zGYEV08i4",
-        authDomain: "multi-pg-cv.firebaseapp.com",
-        projectId: "multi-pg-cv",
-        storageBucket: "multi-pg-cv.firebasestorage.app",
-        messagingSenderId: "932532241141",
-        appId: "1:932532241141:web:cf8bd2a3b97f7977b1bbbc"
-      };
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
+    const firebaseConfig = {
+      apiKey: "AIzaSyBcm_sJ35Y_BnLc0KCzvNKM37zGYEV08i4",
+      authDomain: "multi-pg-cv.firebaseapp.com",
+      projectId: "multi-pg-cv",
+      storageBucket: "multi-pg-cv.firebasestorage.app",
+      messagingSenderId: "932532241141",
+      appId: "1:932532241141:web:cf8bd2a3b97f7977b1bbbc"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-      auth.onAuthStateChanged(user => {
-        if (!user) {
-          window.location.href = "login.html";
-        }
-      });
-    }, false);
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "login.html";
+      }
+    });
   </script>
 </body>
 </html>

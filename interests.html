@@ -38,7 +38,6 @@
     </div>
   </nav>
 
-
   <!-- Interests Section -->
   <section id="interests" class="section">
     <div class="container">
@@ -58,25 +57,22 @@
     </div>
   </footer>
 
-  <script src="cordova.js"></script>
   <script src="js/index.js"></script>
   <script>
-    document.addEventListener('deviceready', function() {
-      const firebaseConfig = {
-        apiKey: "AIzaSyBcm_sJ35Y_BnLc0KCzvNKM37zGYEV08i4",
-        authDomain: "multi-pg-cv.firebaseapp.com",
-        projectId: "multi-pg-cv",
-        storageBucket: "multi-pg-cv.firebasestorage.app",
-        messagingSenderId: "932532241141",
-        appId: "1:932532241141:web:cf8bd2a3b97f7977b1bbbc"
-      };
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
+    const firebaseConfig = {
+      apiKey: "AIzaSyBcm_sJ35Y_BnLc0KCzvNKM37zGYEV08i4",
+      authDomain: "multi-pg-cv.firebaseapp.com",
+      projectId: "multi-pg-cv",
+      storageBucket: "multi-pg-cv.firebasestorage.app",
+      messagingSenderId: "932532241141",
+      appId: "1:932532241141:web:cf8bd2a3b97f7977b1bbbc"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-      auth.onAuthStateChanged(user => {
-        if (!user) window.location.href = "login.html";
-      });
-    }, false);
+    auth.onAuthStateChanged(user => {
+      if (!user) window.location.href = "login.html";
+    });
   </script>
 </body>
 </html>

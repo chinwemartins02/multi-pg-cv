@@ -44,7 +44,7 @@
     <div class="container">
       <h2 class="section-title">Let's Connect</h2>
       <div class="contact-content">
-        <p>If you'd like to talk about a project, have a question, or just want to say hello, feel free to reach out. I’m always open to new opportunities, collaborations, or learning experiences.</p>
+        <p>If you'd like to talk about a project, have a question, or just want to say hello, feel free to reach out. I'm always open to new opportunities, collaborations, or learning experiences.</p>
 
         <div class="contact-form">
           <h3 style="margin-bottom: 2rem; color: #8b5cf6;">Send Me a Message</h3>
@@ -66,18 +66,21 @@
               <textarea id="message" name="message" rows="5" required></textarea>
             </div>
 
-            <!-- Camera Button -->
+            <!-- Camera Button (browser-compatible) -->
             <div class="form-group">
-              <button type="button" id="cameraBtn" 
+              <button type="button" id="cameraBtn"
                 style="background: linear-gradient(90deg, #8b5cf6, #7c3aed); color: white; padding: 12px 20px; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: transform 0.2s; margin-bottom: 10px;">
                 📸 Take Photo
               </button>
+              <!-- Hidden file input for browser camera access -->
+              <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;">
               <p id="cameraOutput" style="margin-top:0.5rem;"></p>
+              <img id="cameraPreview" style="max-width:200px; margin-top:0.5rem; display:none; border-radius:8px;">
             </div>
 
             <!-- Geolocation -->
             <div class="form-group">
-              <button type="button" id="geoBtn" 
+              <button type="button" id="geoBtn"
                 style="background: linear-gradient(90deg, #10b981, #059669); color: white; padding: 12px 20px; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: transform 0.2s; margin-bottom: 5px;">
                 📍 Share My Location
               </button>
@@ -111,67 +114,67 @@
     </div>
   </footer>
 
-  <script src="cordova.js"></script>
   <script src="js/index.js"></script>
   <script>
-    document.addEventListener('deviceready', function() {
-      // Initialize Firebase
-      const firebaseConfig = {
-        apiKey: "AIzaSyBcm_sJ35Y_BnLc0KCzvNKM37zGYEV08i4",
-        authDomain: "multi-pg-cv.firebaseapp.com",
-        projectId: "multi-pg-cv",
-        storageBucket: "multi-pg-cv.firebasestorage.app",
-        messagingSenderId: "932532241141",
-        appId: "1:932532241141:web:cf8bd2a3b97f7977b1bbbc"
-      };
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
+    // Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyBcm_sJ35Y_BnLc0KCzvNKM37zGYEV08i4",
+      authDomain: "multi-pg-cv.firebaseapp.com",
+      projectId: "multi-pg-cv",
+      storageBucket: "multi-pg-cv.firebasestorage.app",
+      messagingSenderId: "932532241141",
+      appId: "1:932532241141:web:cf8bd2a3b97f7977b1bbbc"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-      // Redirect if not signed in
-      auth.onAuthStateChanged(user => {
-        if (!user) window.location.href = "login.html";
-      });
+    // Redirect if not signed in
+    auth.onAuthStateChanged(user => {
+      if (!user) window.location.href = "login.html";
+    });
 
-      // CAMERA
-      document.getElementById('cameraBtn').addEventListener('click', function() {
-        navigator.camera.getPicture(
-          function(imageURI) {
-            document.getElementById('cameraOutput').innerText = "Photo captured: " + imageURI;
-          },
-          function(err) {
-            alert("Camera error: " + err);
-          },
-          {
-            quality: 50,
-            destinationType: Camera.DestinationType.FILE_URI,
-            sourceType: Camera.PictureSourceType.CAMERA,
-            encodingType: Camera.EncodingType.JPEG,
-            saveToPhotoAlbum: true
-          }
-        );
-      });
+    // CAMERA - uses browser file input with camera capture
+    document.getElementById('cameraBtn').addEventListener('click', function() {
+      document.getElementById('cameraInput').click();
+    });
 
-      // GEOLOCATION
-      document.getElementById('geoBtn').addEventListener('click', function() {
+    document.getElementById('cameraInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const preview = document.getElementById('cameraPreview');
+          preview.src = evt.target.result;
+          preview.style.display = 'block';
+          document.getElementById('cameraOutput').innerText = "Photo captured: " + file.name;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // GEOLOCATION - works natively in browsers
+    document.getElementById('geoBtn').addEventListener('click', function() {
+      if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           function(position) {
             document.getElementById('locationOutput').innerText =
               `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;
           },
           function(err) {
-            alert("Geolocation error: " + err.message);
+            document.getElementById('locationOutput').innerText = "Could not get location: " + err.message;
           },
           { enableHighAccuracy: true }
         );
-      });
+      } else {
+        document.getElementById('locationOutput').innerText = "Geolocation is not supported by your browser.";
+      }
+    });
 
-      // Contact Form Submit
-      document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert("Message sent successfully!");
-      });
-
-    }, false);
+    // Contact Form Submit
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert("Message sent successfully!");
+    });
   </script>
 </body>
 </html>
